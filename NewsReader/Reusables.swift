@@ -9,8 +9,20 @@
 import Foundation
 
 class Reusables {
+    func resolveImageUrl(_ urlString: String, _ fallbackUrlString: String) -> URL {
+        //let urlStringWithoutParams: String = urlString.components(separatedBy: "?")[0]
+        
+        print("urlstring", urlString)
+        if let url = URL(string: urlString) {
+            print("default url", urlString)
+            return url;
+        } else {
+            print("Fallback url using for ", urlString)
+            return URL(string: fallbackUrlString)!
+        }
+    }
     
-    func formatDate(_ date:String) -> String{
+    func formatDate(_ date: String) -> String{
         if date == "" {  return "1970-01-01T00:00:00Z" }
         
         let dateFormatter = DateFormatter()
@@ -67,4 +79,7 @@ class Reusables {
         }
         return stringTime
     }
+    
+    
+    
 }

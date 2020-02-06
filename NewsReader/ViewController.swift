@@ -79,10 +79,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.lblTitle.text = self.articlesArray[indexPath.item].title
         cell.lblDate.text = self.articlesArray[indexPath.item].publishedAt
         
-    
-        let url = self.articlesArray[indexPath.item].urlToImage!.isEmpty ? URL(string:"https://img.icons8.com/bubbles/100/000000/no-image.png") : URL(string: self.articlesArray[indexPath.item].urlToImage!)
+        let fallbackImageUrl = "https://img.icons8.com/bubbles/100/000000/no-image.png"
+        let articleImageUrl = self.articlesArray[indexPath.item].urlToImage ?? fallbackImageUrl
+        let url = reusable.resolveImageUrl(articleImageUrl, fallbackImageUrl)
        
-        let data = try? Data(contentsOf: url!)
+        let data = try? Data(contentsOf: url)
         
         if let imageData = data {
             cell.imgArticle.image = UIImage(data: imageData)

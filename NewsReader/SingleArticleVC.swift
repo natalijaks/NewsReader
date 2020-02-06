@@ -46,9 +46,11 @@ class SingleArticleVC: UIViewController {
         txtViewContent.text = articleInfo[0].content
         txtViewContent.isEditable = false
         
-        let url = articleInfo[0].urlToImage!.isEmpty ? URL(string:"https://img.icons8.com/bubbles/100/000000/no-image.png") : URL(string: articleInfo[0].urlToImage!)
-        
-        let data = try? Data(contentsOf: url!)
+        let fallbackImageUrl = "https://img.icons8.com/bubbles/100/000000/no-image.png"
+        let articleImageUrl = articleInfo[0].urlToImage ?? fallbackImageUrl
+        let url = reusable.resolveImageUrl(articleImageUrl, fallbackImageUrl)
+     
+        let data = try? Data(contentsOf: url)
         
         if let imageData = data {
             imgSingleArticle.image = UIImage(data: imageData)
